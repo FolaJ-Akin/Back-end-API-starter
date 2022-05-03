@@ -31,6 +31,14 @@ app.get("/", async (req, res) => {
   res.json(dbres.rows);
 });
 
+app.post("/nwrandword", async (req, res) => {
+  try {
+    const {word} = req.body
+    const newRandWord = await client.query('insert into words (word) values($1) returning*',[word])
+  } catch (error) {
+    console.log(error.message)
+  }
+});
 
 //Start the server on the given port
 const port = process.env.PORT;
